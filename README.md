@@ -12,7 +12,7 @@ Make a POST request to the above URI with and Object containing:
 
 ```
 {
-  emailAddress: 'something@somehting.com',
+  emailAddress: 'something@something.com',
   password: 'password',
   firstName: 'optional',
   lastName: 'also optional'
