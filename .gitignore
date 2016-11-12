@@ -1,5 +1,6 @@
 #ignore directories
 authdemodev
+env.sh
 
 # Created by https://www.gitignore.io/api/osx,linux,node,vim
 ### OSX ###
