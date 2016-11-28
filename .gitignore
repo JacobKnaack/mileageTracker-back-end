@@ -1,5 +1,5 @@
 #ignore directories
-authdemodev
+testDB
 env.sh
 
 # Created by https://www.gitignore.io/api/osx,linux,node,vim

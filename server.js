@@ -17,7 +17,7 @@ const logRouter = require('./route/log-router');
 // constant module variables
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/authdemodev';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/testDB';
 
 // setup mongo
 mongoose.Promise = require('bluebird');
