@@ -9,4 +9,4 @@ const logSchema = module.exports = mongoose.Schema({
   endDest: {type: [Number], required: true}
 });
 
-module.exports = mongoose.model('barrel', logSchema);
+module.exports = mongoose.model('log', logSchema);

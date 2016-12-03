@@ -7,6 +7,7 @@ const debug = require('debug')('authdemo:auth-controller');
 const User = require('../model/user');
 
 exports.signup = function(reqBody){
+  debug('auth.signup');
   return new Promise((resolve, reject) => {
     var password = reqBody.password;
     delete reqBody.password;
@@ -20,6 +21,7 @@ exports.signup = function(reqBody){
 };
 
 exports.signin = function(auth) {
+  debug('auth.signin');
   return new Promise((resolve, reject) => {
     User.findOne({emailAddress: auth.emailAddress})
     .then( user => user.compareHash(auth.password))

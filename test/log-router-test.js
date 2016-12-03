@@ -86,6 +86,35 @@ describe('testing the log router', function(){
         })
         .catch(done);
       });
+
+      it('should return a 400 bad request', (done) => {
+        var date = new Date().getDate();
+
+        request.post(`${baseURL}/log`)
+        .send({date: date, startDest: [], endDest: []})
+        .set({Authorization: `Bearer ${this.tempToken}`})
+        .then(done)
+        .catch(err => {
+          const res = err.response;
+          expect(res.status).to.equal(400);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('should return a 401 unauthorized', (done) => {
+        var date = new Date().getDate();
+
+        request.post(`${baseURL}/log`)
+        .send({date: date, startDest: [127.463736, 178.637468], endDest: [134.76487, 123.4567]})
+        .then(done)
+        .catch(err => {
+          const res = err.response;
+          expect(res.status).to.equal(401);
+          done();
+        })
+        .catch(done);
+      });
     });
 
     describe('testing GET route', () => {
@@ -95,6 +124,29 @@ describe('testing the log router', function(){
         .then(res => {
           expect(res.status).to.equal(200);
           expect(res.body.endDest[1]).to.equal(400);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('should return a 404 not found', (done) => {
+        request.get(`${baseURL}/log/123345`)
+        .set({Authorization: `Bearer ${this.tempToken}`})
+        .then(done)
+        .catch(err => {
+          const res = err.response;
+          expect(res.status).to.equal(404);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('should return a 401 unauthorized', (done) => {
+        request.get(`${baseURL}/log/${this.tempLog._id}`)
+        .then(done)
+        .catch(err => {
+          const res = err.response;
+          expect(res.status).to.equal(401);
           done();
         })
         .catch(done);
@@ -109,6 +161,29 @@ describe('testing the log router', function(){
           expect(res.status).to.equal(204);
           expect(Object.keys(res.body).length).to.equal(0);
           expect(res.body.constructor).to.equal(Object);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('should return a 404 not found', (done) => {
+        request.del(`${baseURL}/log/123345`)
+        .set({Authorization: `Bearer ${this.tempToken}`})
+        .then(done)
+        .catch(err => {
+          const res = err.response;
+          expect(res.status).to.equal(404);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('should return a 401 unauthorized', (done) => {
+        request.del(`${baseURL}/log/${this.tempLog._id}`)
+        .then(done)
+        .catch(err => {
+          const res = err.response;
+          expect(res.status).to.equal(401);
           done();
         })
         .catch(done);
