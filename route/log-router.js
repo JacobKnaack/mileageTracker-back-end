@@ -16,7 +16,9 @@ logRouter.post('/user/log', parseBearerAuth, jsonParser, function(req, res, next
   debug('POST api/log');
   req.body.userId = req.userId;
   logController.createLog(req.body)
-  .then(log => res.json(log))
+  .then(log => {
+    res.json(log);
+  })
   .catch(next);
 });
 

@@ -69,6 +69,23 @@ describe('testing module auth-router', function(){
       })
       .catch(done);
     });
+
+    it('should return a status 400', function(done){
+      debug('POST 400 test on /api/signup');
+      request.post(`${baseURL}/signup`)
+      .send({
+        emailAddress: '',
+        password: '54321'
+      })
+      .then(done)
+      .catch(err => {
+        const res = err.response;
+        expect(res.status).to.equal(400);
+        expect(res.badRequest).to.equal(true);
+        done();
+      })
+      .catch(done);
+    });
   });
 
   describe('testing GET /api/signin', function(){
@@ -96,7 +113,32 @@ describe('testing module auth-router', function(){
         done();
       })
       .catch(done);
+    });
 
+    it('should return a status 500', function(done) {
+      debug('GET 500 test on /api/signin');
+      request.get(`${baseURL}/signin`)
+      .auth('wrong@test.com', 1234)
+      .then(done)
+      .catch(err => {
+        const res = err.response;
+        expect(res.status).to.equal(500);
+        done();
+      })
+      .catch(done);
+    });
+
+    it('should return a status 401', function(done) {
+      debug('GET 401 test on /api/signin');
+      request.get(`${baseURL}/signin`)
+      .auth('test@test.com', 'wrong')
+      .then(done)
+      .catch(err => {
+        const res = err.response;
+        expect(res.status).to.equal(401);
+        done();
+      })
+      .catch(done);
     });
   });
 });
