@@ -51,7 +51,7 @@ describe('testing the log router', function(){
       authController.signup({emailAddress: 'bob@test.com', password: 'password', firstName: 'Bob', lastName: 'logger'})
       .then(token => {
         this.tempToken = token;
-        logController.createLog({userId: '5813b7784f096e0dfe7bbe64', date: date, startDest: [100, 200], endDest: [300, 400]})
+        logController.createLog({userId: '5813b7784f096e0dfe7bbe64', date: date, routeData: [{'lat': 50.969, 'lng': 120.46473}], distance: 20})
         .then(log => {
           this.tempLog = log;
           done();
@@ -76,12 +76,13 @@ describe('testing the log router', function(){
         var date = new Date().getDate();
 
         request.post(`${baseURL}/log`)
-        .send({date: date, startDest: [127, 145], endDest: [201, 231]})
+        .send({date: date, routeData: [{'lat': 127, 'lng': 145}, {'lat': 130, 'lng': 150}], distance: 20})
         .set({Authorization: `Bearer ${this.tempToken}`})
         .then(res => {
           expect(res.status).to.equal(200);
-          expect(Array.isArray(res.body.endDest)).to.equal(true);
-          expect(res.body.startDest[0]).to.equal(127);
+          expect(Array.isArray(res.body.routeData)).to.equal(true);
+          expect(res.body.routeData[0]['lat']).to.equal(127);
+          expect(res.body.routeData[0]['lng']).to.equal(145);
           done();
         })
         .catch(done);
@@ -123,7 +124,7 @@ describe('testing the log router', function(){
         .set({Authorization: `Bearer ${this.tempToken}`})
         .then(res => {
           expect(res.status).to.equal(200);
-          expect(res.body.endDest[1]).to.equal(400);
+          expect(res.body.distance).to.equal(20);
           done();
         })
         .catch(done);
