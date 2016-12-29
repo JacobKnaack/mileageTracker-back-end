@@ -107,11 +107,24 @@ describe('testing the log router', function(){
         var date = new Date().getDate();
 
         request.post(`${baseURL}/log`)
-        .send({date: date, startDest: [127.463736, 178.637468], endDest: [134.76487, 123.4567]})
+        .send({date: date, routeData: [{'lat': 127.3863845, 'lng': 143.735282}], distance: 0})
         .then(done)
         .catch(err => {
           const res = err.response;
           expect(res.status).to.equal(401);
+          done();
+        })
+        .catch(done);
+      });
+    });
+
+    describe('testing GET all user logs', () => {
+      it('should fetch all logs created by user', (done) => {
+        request.get(`${baseURL}/log`)
+        .set({Authorization: `Bearer ${this.tempToken}`})
+        .then(res => {
+          expect(res.status).to.equal(200);
+          expect(res.body.length).to.equal(1);
           done();
         })
         .catch(done);

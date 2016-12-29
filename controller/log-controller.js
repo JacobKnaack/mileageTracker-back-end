@@ -17,6 +17,15 @@ exports.createLog = function(logData){
   });
 };
 
+exports.fetchUserLogs = function(userId) {
+  debug('log controller fetching all logs for user');
+  return new Promise((resolve, reject) => {
+    Log.find({userId: userId})
+    .then(logs => resolve(logs))
+    .catch(err => reject(httpErrors(404, err.message)));
+  });
+};
+
 exports.fetchLog = function(logId) {
   debug('log controller fetching log');
   return new Promise((resolve, reject) => {

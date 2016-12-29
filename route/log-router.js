@@ -22,6 +22,13 @@ logRouter.post('/user/log', parseBearerAuth, jsonParser, function(req, res, next
   .catch(next);
 });
 
+logRouter.get('/user/log', parseBearerAuth, function(req, res, next) {
+  debug('GET all user logs route');
+  logController.fetchUserLogs(req.userId)
+  .then(logs => res.json(logs))
+  .catch(next);
+});
+
 logRouter.get('/user/log/:logid', parseBearerAuth, function(req, res, next){
   debug('GET api/log');
   logController.fetchLog(req.params.logid)
