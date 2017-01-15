@@ -51,7 +51,7 @@ describe('testing the log router', function(){
       authController.signup({emailAddress: 'bob@test.com', password: 'password', firstName: 'Bob', lastName: 'logger'})
       .then(token => {
         this.tempToken = token;
-        logController.createLog({userId: '5813b7784f096e0dfe7bbe64', date: date, routeData: [{'lat': 50.969, 'lng': 120.46473}], distance: 20})
+        logController.createLog({userId: '5813b7784f096e0dfe7bbe64', date: date, routeData: [{'lat': 50.969, 'lng': 120.46473}], startAddress: 'NorthWest 57th St., Seattle', endAddress: '3rd Ave, Seattle', distance: 20})
         .then(log => {
           this.tempLog = log;
           done();
@@ -76,7 +76,7 @@ describe('testing the log router', function(){
         var date = new Date().getDate();
 
         request.post(`${baseURL}/log`)
-        .send({date: date, routeData: [{'lat': 127, 'lng': 145}, {'lat': 130, 'lng': 150}], distance: 20})
+        .send({date: date, routeData: [{'lat': 127, 'lng': 145}, {'lat': 130, 'lng': 150}], startAddress: '3rd Ave, Seattle', endAddress: 'NorthWest 57th St., Seattle',  distance: 20})
         .set({Authorization: `Bearer ${this.tempToken}`})
         .then(res => {
           expect(res.status).to.equal(200);

@@ -6,6 +6,8 @@ const logSchema = module.exports = mongoose.Schema({
   userId: {type: mongoose.Schema.ObjectId, required: true},
   date: {type: Date},
   routeData: {type: Array, 'default': [], required: true},
+  startAddress: {type: String, required: true},
+  endAddress: {type: String, required: true},
   distance: {type: Number, required: true}
 });
 
