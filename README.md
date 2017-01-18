@@ -1,5 +1,7 @@
 # Backend for Mileage Tracker
 
+[![Build Status](https://travis-ci.org/JacobKnaack/mileageTracker-back-end.svg?branch=master)](https://travis-ci.org/JacobKnaack/mileageTracker-back-end)
+
 This is the backend for the Mileage Tracker web application.  This API is used to store information about trips logged by users using the Mileage Tracker application.
 
 URLS:
