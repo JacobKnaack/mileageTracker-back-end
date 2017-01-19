@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "back end code for mileage tracker",
   "main": "server.js",
+  "engines": {
+    "node": "4.4.3",
+    "npm": "3.10.3"
+  },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
   },
